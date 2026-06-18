@@ -6,181 +6,422 @@
 <title>ИГПР - Презентации</title>
 <style>
   :root {
-    --bg-color: #f4f4f9;
-    --text-color: #333;
-    --card-bg: #fff;
-    --grebennikov-color: #8b7355;
-    --kamerilov-color: #0288d1;
-    --hover-g: #d4a853;
-    --hover-k: #4fc3f7;
+    --bg: #101014;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --card-bg: #16161a;
+    --card-border: #26262a;
+    --grebennikov-accent: #d4a853; /* Золотистый для Гребенникова */
+    --kamerilov-accent: #4fc3f7; /* Голубой для Камерилова */
   }
+
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
-    padding: 2rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
   }
-  h1 {
+
+  /* Верхний бейдж */
+  .badge {
+    margin-top: 60px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: transparent;
+  }
+
+  /* Заголовок и подзаголовок */
+  .title-container {
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #222;
+    margin-top: 40px;
+    margin-bottom: 60px;
   }
-  .container {
+
+  h1 {
+    font-family: 'Georgia', serif; /* Похожий на serif шрифт со скриншота */
+    font-size: 5rem;
+    color: var(--grebennikov-accent);
+    margin: 0 0 20px 0;
+    font-weight: normal;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  /* Карточки авторов */
+  .authors-container {
     display: flex;
-    gap: 2rem;
-    max-width: 1200px;
+    gap: 20px;
+    margin-bottom: 60px;
     width: 100%;
+    max-width: 800px;
     justify-content: center;
-    flex-wrap: wrap;
   }
-  .card {
+
+  .author-card {
     background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 500px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  .card-header {
-    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 380px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text-main);
+  }
+
+  .author-card:hover {
+    border-color: #555;
+    background: #1a1a1f;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .grebennikov-avatar { background-color: #2b3a5c; } /* Синий фон аватара Г */
+  .kamerilov-avatar { background-color: #5c3a2b; } /* Коричневый фон аватара К */
+
+  .author-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .author-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .arrow-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border: 1px solid #333;
+    transition: 0.3s;
+  }
+
+  .author-card:hover .arrow-btn {
+    color: #fff;
+    border-color: #666;
+  }
+
+  /* Списки тем (скрыты по умолчанию) */
+  .topics-container {
+    width: 100%;
+    max-width: 800px;
+    display: none; /* Скрыто */
+    flex-direction: column;
+    padding-bottom: 60px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .topics-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
   }
-  .card-header h2 {
-    margin: 0;
+
+  .topics-header h2 {
+    font-family: 'Georgia', serif;
     font-size: 1.8rem;
-  }
-  .grebennikov-header {
-    background-color: var(--grebennikov-color);
-    color: white;
-  }
-  .kamerilov-header {
-    background-color: var(--kamerilov-color);
-    color: white;
-  }
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    background: #fafafa;
-  }
-  .accordion-content.active {
-    max-height: 1000px; /* Large enough to fit content */
-  }
-  .topic-list {
-    list-style: none;
-    padding: 0;
     margin: 0;
   }
-  .topic-list li {
-    border-bottom: 1px solid #eee;
+
+  .close-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
   }
-  .topic-list li:last-child {
-    border-bottom: none;
+
+  .close-btn:hover {
+    background: #333;
+    color: #fff;
   }
-  .topic-link {
-    display: block;
-    padding: 1rem 1.5rem;
+
+  .topic-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: background-color 0.2s;
+    color: var(--text-main);
+    transition: all 0.2s;
   }
-  .grebennikov-link:hover {
-    background-color: rgba(212, 168, 83, 0.1);
-    color: var(--grebennikov-color);
+
+  .topic-item:hover {
+    border-color: #555;
+    background: #1a1a1f;
   }
-  .kamerilov-link:hover {
-    background-color: rgba(79, 195, 247, 0.1);
-    color: var(--kamerilov-color);
+
+  .topic-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-right: 20px;
   }
-  .icon {
-    font-weight: bold;
-    font-size: 1.5rem;
-    transition: transform 0.3s;
+
+  .topic-title {
+    flex-grow: 1;
+    font-size: 1rem;
   }
-  .card-header.active .icon {
-    transform: rotate(45deg);
+
+  .topic-arrow {
+    color: var(--text-muted);
+    font-size: 1.2rem;
   }
+
+  /* Скрытие главной страницы при показе тем */
+  .main-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: opacity 0.3s;
+  }
+
 </style>
 </head>
 <body>
 
-<h1>История государства и права России</h1>
+<!-- Главный экран -->
+<div class="main-view" id="main-view">
+  <div class="badge">ИСТОРИЯ ГОСУДАРСТВА И ПРАВА РОССИИ</div>
 
-<div class="container">
-  <!-- Карточка Гребенникова -->
-  <div class="card">
-    <div class="card-header grebennikov-header" onclick="toggleAccordion('grebennikov')">
-      <h2>Гребенников</h2>
-      <span class="icon">+</span>
-    </div>
-    <div class="accordion-content" id="grebennikov-content">
-      <ul class="topic-list">
-        <li><a href="grebennikov/tema-01.html" target="_blank" class="topic-link grebennikov-link">Тема 1. Введение. Древнерусское право и государство</a></li>
-        <li><a href="grebennikov/tema-02.html" target="_blank" class="topic-link grebennikov-link">Тема 2. Государство и право периода раздробленности</a></li>
-        <li><a href="grebennikov/tema-03.html" target="_blank" class="topic-link grebennikov-link">Тема 3. Образование Русского централизованного государства</a></li>
-        <li><a href="grebennikov/tema-04.html" target="_blank" class="topic-link grebennikov-link">Тема 4. Государственный строй и право Московского царства (XVII в.)</a></li>
-        <li><a href="grebennikov/tema-05.html" target="_blank" class="topic-link grebennikov-link">Тема 5. Государственный строй и право Российской империи (первая половина XVIII в.)</a></li>
-        <li><a href="grebennikov/tema-09.html" target="_blank" class="topic-link grebennikov-link">Тема 9. Думская монархия и ПМВ</a></li>
-        <li><a href="grebennikov/tema-10.html" target="_blank" class="topic-link grebennikov-link">Тема 10. Февральская революция. Реформы Временного правительства</a></li>
-        <li><a href="grebennikov/tema-11.html" target="_blank" class="topic-link grebennikov-link">Тема 11. Создание основ Советского государства. Конституция РСФСР 1918 г.</a></li>
-        <li><a href="grebennikov/tema-12.html" target="_blank" class="topic-link grebennikov-link">Тема 12. НЭП. Конституция СССР 1924 г.</a></li>
-        <li><a href="grebennikov/tema-13.html" target="_blank" class="topic-link grebennikov-link">Тема 13. Государство и право СССР в 1930-х - начале 1940-х гг. Конституция 1936 г.</a></li>
-        <li><a href="grebennikov/tema-15.html" target="_blank" class="topic-link grebennikov-link">Тема 15. Советское государство и право во второй половине 50-х – 80-х гг. (Для Гребенникова)</a></li>
-      </ul>
-    </div>
+  <div class="title-container">
+    <h1 style="display:none;">Лекционные материалы</h1> <!-- Скрыл текст по просьбе -->
+    <p class="subtitle" style="margin-top: 40px; font-size: 1.2rem;">Выберите автора для доступа к тематическим<br>презентациям</p>
   </div>
 
-  <!-- Карточка Камерилова -->
-  <div class="card">
-    <div class="card-header kamerilov-header" onclick="toggleAccordion('kamerilov')">
-      <h2>Камерилов</h2>
-      <span class="icon">+</span>
+  <div class="authors-container">
+    <!-- Гребенников -->
+    <div class="author-card" onclick="showTopics('grebennikov')">
+      <div class="avatar grebennikov-avatar">Г</div>
+      <div class="author-info">
+        <span class="author-name">Гребенников Д. М.</span>
+        <span class="author-meta">АВТОР • 11 презентаций</span>
+      </div>
+      <div class="arrow-btn">→</div>
     </div>
-    <div class="accordion-content" id="kamerilov-content">
-      <ul class="topic-list">
-        <li><a href="kamerilov/tema-01.html" target="_blank" class="topic-link kamerilov-link">Тема 1. Введение. Древнерусское право и государство</a></li>
-        <li><a href="kamerilov/tema-02.html" target="_blank" class="topic-link kamerilov-link">Тема 2. Государство и право периода раздробленности</a></li>
-        <li><a href="kamerilov/tema-03.html" target="_blank" class="topic-link kamerilov-link">Тема 3. Образование Русского централизованного государства</a></li>
-        <li><a href="kamerilov/tema-04.html" target="_blank" class="topic-link kamerilov-link">Тема 4. Государственный строй и право Московского царства (XVII в.)</a></li>
-        <li><a href="kamerilov/tema-05.html" target="_blank" class="topic-link kamerilov-link">Тема 5. Государственный строй и право Российской империи (первая половина XVIII в.)</a></li>
-        <li><a href="kamerilov/tema-09.html" target="_blank" class="topic-link kamerilov-link">Тема 9. Думская монархия и ПМВ</a></li>
-        <li><a href="kamerilov/tema-10.html" target="_blank" class="topic-link kamerilov-link">Тема 10. Февральская революция. Реформы Временного правительства</a></li>
-        <li><a href="kamerilov/tema-11.html" target="_blank" class="topic-link kamerilov-link">Тема 11. Создание основ Советского государства. Конституция РСФСР 1918 г.</a></li>
-        <li><a href="kamerilov/tema-12.html" target="_blank" class="topic-link kamerilov-link">Тема 12. НЭП. Конституция СССР 1924 г.</a></li>
-        <li><a href="kamerilov/tema-13.html" target="_blank" class="topic-link kamerilov-link">Тема 13. Государство и право СССР в 1930-х - начале 1940-х гг. Конституция 1936 г.</a></li>
-        <li><a href="kamerilov/tema-14.html" target="_blank" class="topic-link kamerilov-link">Тема 14. Государство и право СССР в период ВОВ (Для Камерилова)</a></li>
-      </ul>
+
+    <!-- Камерилов -->
+    <div class="author-card" onclick="showTopics('kamerilov')">
+      <div class="avatar kamerilov-avatar">К</div>
+      <div class="author-info">
+        <span class="author-name">Камерилов</span>
+        <span class="author-meta">АВТОР • 11 презентаций</span>
+      </div>
+      <div class="arrow-btn">→</div>
     </div>
   </div>
 </div>
 
-<script>
-  function toggleAccordion(id) {
-    const content = document.getElementById(id + '-content');
-    const header = content.previousElementSibling;
+<!-- Темы Гребенникова -->
+<div class="topics-container" id="grebennikov-topics">
+  <div class="topics-header">
+    <h2>Гребенников Д. М.</h2>
+    <button class="close-btn" onclick="showMain()">×</button>
+  </div>
 
-    if (content.classList.contains('active')) {
-      content.classList.remove('active');
-      header.classList.remove('active');
-      header.querySelector('.icon').innerText = '+';
-    } else {
-      content.classList.add('active');
-      header.classList.add('active');
-      header.querySelector('.icon').innerText = '×';
-    }
+  <a href="grebennikov/tema-01.html" target="_blank" class="topic-item">
+    <div class="topic-number">1</div>
+    <div class="topic-title">Введение. Древнерусское право и государство</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-02.html" target="_blank" class="topic-item">
+    <div class="topic-number">2</div>
+    <div class="topic-title">Государство и право периода феодальной раздробленности</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-03.html" target="_blank" class="topic-item">
+    <div class="topic-number">3</div>
+    <div class="topic-title">Образование Русского централизованного государства (XIV–XVI вв.)</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-04.html" target="_blank" class="topic-item">
+    <div class="topic-number">4</div>
+    <div class="topic-title">Государство и право России в XVII веке</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-05.html" target="_blank" class="topic-item">
+    <div class="topic-number">5</div>
+    <div class="topic-title">Абсолютная монархия в России (первая половина XVIII в.)</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-09.html" target="_blank" class="topic-item">
+    <div class="topic-number">9</div>
+    <div class="topic-title">Думская монархия. Преобразования в период ПМВ</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-10.html" target="_blank" class="topic-item">
+    <div class="topic-number">10</div>
+    <div class="topic-title">Февральская революция. Временное правительство</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-11.html" target="_blank" class="topic-item">
+    <div class="topic-number">11</div>
+    <div class="topic-title">Создание основ Советского государства. Конституция РСФСР 1918 г.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-12.html" target="_blank" class="topic-item">
+    <div class="topic-number">12</div>
+    <div class="topic-title">НЭП. Конституция СССР 1924 г.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-13.html" target="_blank" class="topic-item">
+    <div class="topic-number">13</div>
+    <div class="topic-title">Государство и право СССР в 1930-х - начале 1940-х гг.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="grebennikov/tema-15.html" target="_blank" class="topic-item">
+    <div class="topic-number">15</div>
+    <div class="topic-title">СССР во второй половине 50-х – 80-х гг. Конституция 1977 г.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+</div>
+
+<!-- Темы Камерилова -->
+<div class="topics-container" id="kamerilov-topics">
+  <div class="topics-header">
+    <h2>Камерилов</h2>
+    <button class="close-btn" onclick="showMain()">×</button>
+  </div>
+
+  <a href="kamerilov/tema-01.html" target="_blank" class="topic-item">
+    <div class="topic-number">1</div>
+    <div class="topic-title">Введение. Древнерусское право и государство</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-02.html" target="_blank" class="topic-item">
+    <div class="topic-number">2</div>
+    <div class="topic-title">Государство и право периода феодальной раздробленности</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-03.html" target="_blank" class="topic-item">
+    <div class="topic-number">3</div>
+    <div class="topic-title">Образование Русского централизованного государства (XIV–XVI вв.)</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-04.html" target="_blank" class="topic-item">
+    <div class="topic-number">4</div>
+    <div class="topic-title">Государство и право России в XVII веке</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-05.html" target="_blank" class="topic-item">
+    <div class="topic-number">5</div>
+    <div class="topic-title">Абсолютная монархия в России (первая половина XVIII в.)</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-09.html" target="_blank" class="topic-item">
+    <div class="topic-number">9</div>
+    <div class="topic-title">Думская монархия. Преобразования в период ПМВ</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-10.html" target="_blank" class="topic-item">
+    <div class="topic-number">10</div>
+    <div class="topic-title">Февральская революция. Временное правительство</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-11.html" target="_blank" class="topic-item">
+    <div class="topic-number">11</div>
+    <div class="topic-title">Создание основ Советского государства. Конституция РСФСР 1918 г.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-12.html" target="_blank" class="topic-item">
+    <div class="topic-number">12</div>
+    <div class="topic-title">НЭП. Конституция СССР 1924 г.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-13.html" target="_blank" class="topic-item">
+    <div class="topic-number">13</div>
+    <div class="topic-title">Государство и право СССР в 1930-х - начале 1940-х гг.</div>
+    <div class="topic-arrow">›</div>
+  </a>
+  <a href="kamerilov/tema-14.html" target="_blank" class="topic-item">
+    <div class="topic-number">14</div>
+    <div class="topic-title">Государство и право СССР в период ВОВ</div>
+    <div class="topic-arrow">›</div>
+  </a>
+</div>
+
+<script>
+  function showTopics(author) {
+    document.getElementById('main-view').style.display = 'none';
+    document.getElementById('grebennikov-topics').style.display = 'none';
+    document.getElementById('kamerilov-topics').style.display = 'none';
+
+    document.getElementById(author + '-topics').style.display = 'flex';
+    window.scrollTo(0, 0);
+  }
+
+  function showMain() {
+    document.getElementById('grebennikov-topics').style.display = 'none';
+    document.getElementById('kamerilov-topics').style.display = 'none';
+    document.getElementById('main-view').style.display = 'flex';
   }
 </script>
 
