@@ -3,714 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тема 1 — Введение. ИГПР | Гребенников</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Введение. Древнерусское государство и право (IX–XII вв.) — Гребенников</title>
 <style>
-  :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --accent: #d4a853;
-    --accent2: #8b7355;
-    --text: #e6d5b8;
-    --muted: #c9b99a;
-    --faint: #7a6a55;
-    --glass: rgba(255,255,255,0.04);
-    --glass-border: rgba(212,168,83,0.18);
-    --glow-rgb: 212,168,83;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; width: 100vw; }
-  body { font-family: 'Source Sans 3', sans-serif; }
-
-  /* ── DECK ── */
-  .deck { width: 100vw; height: 100vh; position: relative; }
-  .slide {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: scale(0.97);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    pointer-events: none; overflow: hidden;
-    background: var(--bg);
-  }
-  .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
-  .slide > .content {
-    position: relative; z-index: 2;
-    width: 100%; max-width: 1100px;
-    padding: clamp(2rem, 4vw, 4.5rem);
-  }
-
-  /* ── NOISE + VIGNETTE ── */
-  .slide::before {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    background-size: 256px 256px; opacity: 0.03; mix-blend-mode: overlay;
-  }
-  .slide::after {
-    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%);
-  }
-
-  /* ── GRADIENT MESH ── */
-  .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-  @keyframes float-slow { 0%{transform:translate(0,0) scale(1)} 30%{transform:translate(50px,-40px) scale(1.1)} 60%{transform:translate(-35px,35px) scale(0.92)} 100%{transform:translate(0,0) scale(1)} }
-  @keyframes float-drift { 0%{transform:translate(0,0) scale(1)} 40%{transform:translate(-55px,-50px) scale(1.12)} 70%{transform:translate(40px,25px) scale(0.9)} 100%{transform:translate(0,0) scale(1)} }
-  .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 12s ease-in-out infinite; }
-  .blob:nth-child(2) { animation: float-drift 16s ease-in-out infinite; }
-  .blob:nth-child(3) { animation: float-slow 20s ease-in-out infinite reverse; }
-
-  /* ── REVEAL ANIMATION ── */
-  .reveal { opacity: 0; transform: translateY(18px); }
-
-  /* ── MOUSE SPOTLIGHT ── */
-  .mouse-spotlight { position: fixed; inset: 0; z-index: 99; pointer-events: none; }
-
-  /* ── NAV ── */
-  .nav-controls {
-    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 14px; z-index: 100;
-    background: var(--glass); backdrop-filter: blur(12px);
-    padding: 10px 22px; border-radius: 40px;
-    border: 1px solid var(--glass-border);
-  }
-  .nav-btn {
-    width: 38px; height: 38px; border: none;
-    background: transparent; color: var(--accent);
-    border-radius: 50%; font-size: 1.4rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.25s, transform 0.2s;
-  }
-  .nav-btn:hover { background: rgba(212,168,83,0.12); transform: scale(1.1); }
-  .slide-dots { display: flex; gap: 7px; }
-  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--faint); cursor: pointer; transition: background 0.3s, transform 0.3s; }
-  .dot.active { background: var(--accent); transform: scale(1.35); }
-  .slide-counter { font-size: 0.8rem; color: var(--faint); min-width: 44px; text-align: center; font-family: 'Source Sans 3', sans-serif; }
-
-  /* ── CLOSE BUTTON ── */
-  .close-btn {
-    position: fixed; top: 22px; right: 26px; z-index: 100;
-    width: 40px; height: 40px; border-radius: 50%;
-    background: var(--glass); backdrop-filter: blur(8px);
-    border: 1px solid var(--glass-border); color: var(--muted);
-    font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all 0.25s; text-decoration: none;
-  }
-  .close-btn:hover { background: rgba(212,168,83,0.15); color: var(--accent); }
-
-  /* ── TYPOGRAPHY ── */
-  .slide-label {
-    font-size: clamp(0.65rem, 1vw, 0.78rem);
-    color: var(--accent2); text-transform: uppercase; letter-spacing: 0.14em;
-    display: flex; align-items: center; gap: 10px; margin-bottom: 1.2rem;
-  }
-  .slide-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent2); }
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 5.5vw, 4.2rem); font-weight: 900;
-    line-height: 1.1; color: var(--accent); letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #d4a853, #e6d5b8, #8b7355);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 700;
-    color: var(--accent); margin-bottom: 0.4em; line-height: 1.2;
-  }
-  .body-text {
-    font-size: clamp(1rem, 1.8vw, 1.22rem); line-height: 1.75;
-    color: var(--muted); text-align: justify; max-width: 72ch;
-  }
-  .subtitle {
-    font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: var(--muted);
-    letter-spacing: 0.04em; margin-top: 0.6rem;
-  }
-
-  /* ── GLASS CARD ── */
-  .glass-card {
-    background: var(--glass); backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border); border-radius: 14px;
-    padding: clamp(1.2rem, 2.5vw, 2rem);
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-  .glass-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(212,168,83,0.1); }
-
-  /* ── CONTENT GRID ── */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
-
-  /* ── IMAGE BLOCK ── */
-  .img-block {
-    border: 2px solid var(--glass-border); border-radius: 10px;
-    overflow: hidden; max-height: 30vh; display: flex; align-items: center; justify-content: center;
-    background: var(--surface);
-  }
-  .img-block img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* ── BULLET LIST ── */
-  .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .bullet-list li {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: var(--muted); line-height: 1.55;
-  }
-  .bullet-list li::before { content: '◆'; color: var(--accent); font-size: 0.6em; margin-top: 0.35em; flex-shrink: 0; }
-
-  /* ── COLUMNS ── */
-  .col-header { font-family: 'Source Sans 3', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 0.8rem; font-weight: 600; }
-
-  /* ── STAT ── */
-  .stat-val { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(212,168,83,0.4); }
-  .stat-label { font-size: 0.82rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+:root{
+  --bg:#0d1117; --surface:#161b22; --accent:#d4a853; --accent2:#8b7355;
+  --text:#e6d5b8; --sub:#c9b99a; --faint:#7a6a55;
+  --glass:rgba(255,255,255,.04); --gborder:rgba(212,168,83,.20);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden}
+body{font-family:Georgia,'Times New Roman',serif;display:flex;align-items:center;justify-content:center}
+.deck{position:relative;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;margin:auto;
+  background:var(--bg);overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.7)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .55s ease, transform .55s ease, visibility 0s linear .55s;transform:scale(.985);
+  display:flex;align-items:center;padding:4.2% 6%;}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;transform:scale(1);transition:opacity .55s ease, transform .55s ease, visibility 0s}
+.slide::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.5) 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none}
+.content{position:relative;z-index:2;width:100%}
+.label{font-family:'Trebuchet MS',sans-serif;font-size:1.05vw;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent2);display:flex;align-items:center;gap:.7vw;margin-bottom:1.1vw}
+.label::before{content:'';width:2.4vw;height:2px;background:var(--accent2)}
+h2{font-family:Georgia,serif;font-weight:700;font-size:2.5vw;line-height:1.15;color:var(--accent);
+  margin-bottom:1.2vw;letter-spacing:-.01em}
+.body{font-size:1.32vw;line-height:1.6;color:var(--sub);max-width:62ch}
+.body strong{color:var(--text)}
+.bullets{list-style:none;display:flex;flex-direction:column;gap:.85vw;margin-top:.4vw}
+.bullets li{display:flex;gap:.8vw;font-size:1.28vw;line-height:1.45;color:var(--sub)}
+.bullets li::before{content:'◆';color:var(--accent);font-size:.7em;margin-top:.4em;flex-shrink:0}
+.bullets li strong{color:var(--text)}
+.grid{display:grid;gap:1.4vw;margin-top:.6vw}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--glass);border:1px solid var(--gborder);border-radius:.8vw;padding:1.5vw}
+.card .ct{font-family:'Trebuchet MS',sans-serif;font-size:1vw;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:.7vw}
+.card p{font-size:1.12vw;line-height:1.5;color:var(--sub)}
+.card .bullets li{font-size:1.05vw}
+table{width:100%;border-collapse:collapse;margin-top:.6vw;font-size:1.15vw}
+th{background:rgba(212,168,83,.12);color:var(--accent);text-align:left;padding:.85vw 1.1vw;
+  font-family:'Trebuchet MS',sans-serif;font-size:1vw;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--gborder)}
+td{padding:.8vw 1.1vw;border:1px solid var(--gborder);color:var(--sub);line-height:1.4}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.tl{display:flex;flex-direction:column;gap:.7vw;margin-top:.6vw;position:relative;padding-left:2.4vw}
+.tl::before{content:'';position:absolute;left:.55vw;top:.4vw;bottom:.4vw;width:2px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:.6}
+.tl .ev{position:relative}
+.tl .ev::before{content:'';position:absolute;left:-2.05vw;top:.45em;width:.9vw;height:.9vw;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 .35vw rgba(212,168,83,.15)}
+.tl .d{color:var(--accent);font-weight:700;font-size:1.18vw;margin-right:.8vw}
+.tl .t{color:var(--sub);font-size:1.15vw}
+.stat .v{font-family:Georgia,serif;font-weight:700;font-size:3vw;color:var(--accent);text-shadow:0 0 18px rgba(212,168,83,.35)}
+.stat .l{font-family:'Trebuchet MS',sans-serif;font-size:.95vw;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:.3vw}
+.imgwrap{border:2px solid var(--gborder);border-radius:.7vw;overflow:hidden;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;height:100%}
+.imgwrap img{width:100%;height:100%;object-fit:cover;display:block}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:2vw;align-items:center}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:1.4vw;margin-top:.6vw}
+.center{text-align:center}
+.center .label{justify-content:center}.center .label::before{display:none}
+/* NAV */
+.nav{position:absolute;bottom:2.4%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1vw;
+  z-index:50;background:var(--glass);border:1px solid var(--gborder);backdrop-filter:blur(10px);
+  padding:.7vw 1.6vw;border-radius:3vw}
+.nbtn{width:2.7vw;height:2.7vw;border:none;background:transparent;color:var(--accent);border-radius:50%;
+  font-size:1.6vw;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;line-height:1}
+.nbtn:hover{background:rgba(212,168,83,.14);transform:scale(1.1)}
+.dots{display:flex;gap:.5vw}
+.dot{width:.7vw;height:.7vw;border-radius:50%;background:var(--faint);cursor:pointer;transition:.3s}
+.dot.active{background:var(--accent);transform:scale(1.4)}
+.counter{font-family:'Trebuchet MS',sans-serif;font-size:1vw;color:var(--faint);min-width:3.4vw;text-align:center}
+.close{position:absolute;top:3%;right:2.4%;z-index:60;width:2.9vw;height:2.9vw;border-radius:50%;
+  background:var(--glass);border:1px solid var(--gborder);color:var(--sub);font-size:1.5vw;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s}
+.close:hover{background:rgba(212,168,83,.16);color:var(--accent)}
+.reveal{opacity:0;transform:translateY(16px)}
 </style>
 </head>
 <body>
-
-<div class="mouse-spotlight" id="spotlight"></div>
-
-<!-- CLOSE BUTTON -->
-<a class="close-btn" href="/" title="На главную">✕</a>
-
+<a class="close" href="../index.html" title="На главную">&#10005;</a>
 <div class="deck">
-
-  <!-- SLIDE 1: TITLE -->
-  <div class="slide active" data-slide="1">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:520px;height:520px;top:-120px;right:-100px;background:#d4a853;opacity:0.13;"></div>
-      <div class="blob" style="width:300px;height:300px;bottom:-80px;left:-60px;background:#8b7355;opacity:0.11;"></div>
-      <div class="blob" style="width:200px;height:200px;top:45%;left:10%;background:#d4a853;opacity:0.08;"></div>
-    </div>
-    <div class="content" style="text-align:center;">
-      <div class="reveal" style="font-size:5rem;margin-bottom:1.5rem;animation:float-slow 4s ease-in-out infinite;">⚖️</div>
-      <div class="slide-label reveal" style="justify-content:center;">История государства и права России</div>
-      <h1 class="reveal" style="margin:0 auto 1.2rem;">Тема 1. Введение.<br>Древнерусское государство и право</h1>
-      <p class="subtitle reveal">Гребенников Д. М. · 16 вопросов + заключение</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 2: Цели и задачи -->
-  <div class="slide" data-slide="2">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:380px;height:380px;top:-80px;right:-70px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 1</div>
-      <h2 class="reveal">Цели и задачи курса «ИГПР»</h2>
-      <p class="body-text reveal">История государства и права России — одна из фундаментальных дисциплин юридического образования. <strong>Главная цель</strong> курса заключается в формировании у студентов системного понимания закономерностей становления и развития отечественных государственных и правовых институтов от их истоков до современности. <strong>Задачи</strong> включают изучение исторических форм государства, анализ эволюции источников и памятников права, раскрытие роли исторического опыта в формировании современного законодательства. Дисциплина воспитывает историко-правовое мышление, необходимое для профессиональной юридической деятельности, и формирует уважение к правовому наследию страны.</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 3: Предмет и объект -->
-  <div class="slide" data-slide="3">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:350px;height:350px;top:-60px;left:-50px;background:#d4a853;opacity:0.08;"></div>
-      <div class="blob" style="width:280px;height:280px;bottom:-60px;right:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 2</div>
-      <h2 class="reveal">Предмет и объект ИГПР</h2>
-      <div class="grid-2 reveal" style="margin-top:1.5rem;gap:22px;">
-        <div class="glass-card">
-          <div class="col-header">Объект</div>
-          <p style="font-size:1rem;color:var(--muted);line-height:1.65;">Государство и право России как целостные социальные явления, рассматриваемые в их конкретно-исторической реальности на всём протяжении существования.</p>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Предмет</div>
-          <p style="font-size:1rem;color:var(--muted);line-height:1.65;">Конкретные исторические закономерности возникновения, развития и смены типов и форм государства, а также эволюция правовых институтов и источников права России.</p>
-        </div>
-      </div>
-      <p class="body-text reveal" style="margin-top:1.2rem;">В отличие от теории государства и права, ИГПР изучает не абстрактные понятия, а конкретные исторические факты и документы. В отличие от общей истории — концентрируется исключительно на государственно-правовом аспекте общественной жизни.</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 4: Методология -->
-  <div class="slide" data-slide="4">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;top:-90px;right:-80px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:220px;height:220px;bottom:-40px;left:-30px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 3</div>
-      <h2 class="reveal">Методология дисциплины «ИГПР»</h2>
-      <div class="grid-3 reveal" style="margin-top:1.4rem;">
-        <div class="glass-card">
-          <div class="col-header">Общенаучные методы</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>Анализ и синтез исторических фактов</li>
-            <li>Дедукция и индукция</li>
-            <li>Системный подход</li>
-            <li>Логический метод</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Специально-исторические</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>Хронологический</li>
-            <li>Сравнительно-исторический</li>
-            <li>Ретроспективный</li>
-            <li>Метод периодизации</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Специально-правовые</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>Формально-юридический</li>
-            <li>Сравнительно-правовой</li>
-            <li>Толкование норм права</li>
-            <li>Анализ памятников права</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 5: Место в системе наук -->
-  <div class="slide" data-slide="5">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:360px;height:360px;bottom:-70px;right:-60px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:250px;height:250px;top:-50px;left:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 4</div>
-      <h2 class="reveal">ИГПР в системе общественных и юридических наук</h2>
-      <p class="body-text reveal">ИГПР занимает связующее положение между двумя группами наук. Как <strong>историческая наука</strong> она опирается на факты, хронологию и архивные источники, используя методы исторического исследования. Как <strong>юридическая наука</strong> она оперирует правовыми понятиями и категориями, исследует природу законов и властных институтов. Дисциплина тесно взаимодействует с теорией государства и права, конституционным, гражданским, уголовным и другими отраслями права — она снабжает их историческим материалом, объясняя происхождение и трансформацию современных правовых институтов и норм.</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 6: Периодизация -->
-  <div class="slide" data-slide="6">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:420px;height:420px;top:-100px;right:-90px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:230px;height:230px;bottom:-45px;left:-35px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 5</div>
-      <h2 class="reveal">Периодизация ИГПР</h2>
-      <div class="reveal" style="display:flex;flex-direction:column;gap:10px;margin-top:1.2rem;position:relative;">
-        <div style="position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:0.5;border-radius:2px;z-index:0;"></div>
-        <!-- Timeline items -->
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">IX–XII вв.</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Древнерусское государство и право</span>
-        </div>
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">XII–XV вв.</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Период феодальной раздробленности</span>
-        </div>
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">XV–XVII вв.</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Московское централизованное государство</span>
-        </div>
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">XVIII — нач. XX в.</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Российская империя. Абсолютизм</span>
-        </div>
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">1917–1991</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Советское государство и право</span>
-        </div>
-        <div class="glass-card" style="margin-left:40px;padding:0.9rem 1.2rem;">
-          <span style="color:var(--accent);font-weight:700;font-size:0.88rem;">1991 — н.в.</span>
-          <span style="color:var(--muted);font-size:0.88rem;margin-left:12px;">Современная Российская Федерация</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 7: Норманизм -->
-  <div class="slide" data-slide="7">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;top:-90px;left:-70px;background:#d4a853;opacity:0.1;"></div>
-      <div class="blob" style="width:260px;height:260px;bottom:-60px;right:-50px;background:#8b7355;opacity:0.08;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 6</div>
-      <h2 class="reveal">Причины возникновения государства.<br>Норманизм и антинорманизм</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;gap:20px;align-items:start;">
-        <div>
-          <p class="body-text" style="margin-bottom:1rem;">К объективным причинам образования государства у восточных славян относятся: развитие пашенного земледелия и появление прибавочного продукта, имущественное и социальное расслоение общества, необходимость защиты от внешних врагов (хазар, печенегов), развитие торговли по пути «из варяг в греки».</p>
-          <div class="glass-card" style="padding:1rem;">
-            <div class="col-header">Норманнская теория</div>
-            <p style="font-size:0.92rem;color:var(--muted);">Байер, Миллер, Шлёцер — государство создано варягами по призыву славян.</p>
-          </div>
-          <div class="glass-card" style="margin-top:10px;padding:1rem;">
-            <div class="col-header">Антинорманская теория</div>
-            <p style="font-size:0.92rem;color:var(--muted);">Ломоносов, Рыбаков — государство — результат внутреннего развития; варяги лишь возглавили сложившиеся структуры.</p>
-          </div>
-        </div>
-        <div class="img-block" style="max-height:35vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/East_Slavic_tribes_8th_9th_century.png/320px-East_Slavic_tribes_8th_9th_century.png" alt="Карта восточнославянских племён" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 8: Социальное устройство -->
-  <div class="slide" data-slide="8">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:380px;height:380px;top:-80px;right:-70px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 7</div>
-      <h2 class="reveal">Социальное устройство Древнерусского государства</h2>
-      <div class="grid-3 reveal" style="margin-top:1.4rem;">
-        <div class="glass-card">
-          <div class="col-header">Привилегированные</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>Князья</li>
-            <li>Бояре (старшая дружина)</li>
-            <li>Младшая дружина (гриди, отроки)</li>
-            <li>Духовенство (после 988 г.)</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Свободное население</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>«Люди» — смерды-общинники</li>
-            <li>Купцы и ремесленники</li>
-            <li>Рядовичи (по ряду-договору)</li>
-            <li>Закупы (отрабатывали «купу»)</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Зависимое население</div>
-          <ul class="bullet-list" style="font-size:0.92rem;">
-            <li>Холопы — полное бесправие</li>
-            <li>Челядь — рабы военного захвата</li>
-            <li>Изгои — выбившиеся из общины</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 9: Органы власти -->
-  <div class="slide" data-slide="9">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;bottom:-90px;left:-70px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:250px;height:250px;top:-50px;right:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 8</div>
-      <h2 class="reveal">Система органов государственной власти Древней Руси</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;align-items:start;gap:20px;">
-        <div>
-          <div class="glass-card" style="margin-bottom:12px;">
-            <div class="col-header">Великий князь киевский</div>
-            <p style="font-size:0.93rem;color:var(--muted);">Глава государства, верховный военачальник и судья, хранитель внешних сношений.</p>
-          </div>
-          <div class="glass-card" style="margin-bottom:12px;">
-            <div class="col-header">Совет при князе (прото-Боярская дума)</div>
-            <p style="font-size:0.93rem;color:var(--muted);">Старшие дружинники и местная знать; совещательный орган по важнейшим вопросам.</p>
-          </div>
-          <div class="glass-card">
-            <div class="col-header">Вече</div>
-            <p style="font-size:0.93rem;color:var(--muted);">Народное собрание; решало вопросы войны, мира, призвания/изгнания князей.</p>
-          </div>
-        </div>
-        <div class="img-block" style="max-height:38vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Veche.jpg/280px-Veche.jpg" alt="Вече в Древней Руси" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 10: Военное устройство -->
-  <div class="slide" data-slide="10">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:380px;height:380px;top:-80px;right:-65px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:220px;height:220px;bottom:-40px;left:-35px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 9</div>
-      <h2 class="reveal">Военное устройство Древней Руси. Дружина</h2>
-      <p class="body-text reveal">Вооружённые силы Древней Руси делились на <strong>профессиональную дружину</strong> и <strong>народное ополчение</strong>. Дружина подразделялась на «старшую» (бояре — ближайшие советники и военачальники) и «младшую» (отроки, гриди — рядовые воины). Дружина выполняла не только военные функции: она участвовала в управлении, судопроизводстве и сборе дани (полюдье). Народное ополчение (вои) созывалось во время крупных военных кампаний по решению веча. Его численность порой превышала дружину в десятки раз. Строилось ополчение по десятичной системе: тысяцкий → сотник → десятник.</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 11: Политика первых князей -->
-  <div class="slide" data-slide="11">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:420px;height:420px;top:-95px;left:-80px;background:#d4a853;opacity:0.1;"></div>
-      <div class="blob" style="width:240px;height:240px;bottom:-55px;right:-40px;background:#8b7355;opacity:0.08;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 10</div>
-      <h2 class="reveal">Политика первых русских князей</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;align-items:start;">
-        <p class="body-text">Первые князья Рюриковичи (Олег, Игорь, Святослав) сосредоточили усилия на объединении восточнославянских племён под властью Киева и контроле над торговым путём «из варяг в греки». Ключевой реформой стала административно-налоговая реформа <strong>княгини Ольги</strong> (~945–946 гг.): после убийства Игоря древлянами она установила фиксированные размеры дани — «уроки» — и места её сбора — «погосты», что заложило основы регулярного государственного управления.</p>
-        <div class="img-block" style="max-height:38vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Vasnetsov_Oleg.jpg/280px-Vasnetsov_Oleg.jpg" alt="Вещий Олег" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 12: Источники права -->
-  <div class="slide" data-slide="12">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:370px;height:370px;top:-70px;right:-60px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:230px;height:230px;bottom:-50px;left:-35px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 11</div>
-      <h2 class="reveal">Источники права Древней Руси: общая характеристика</h2>
-      <ul class="bullet-list reveal" style="margin-top:1.3rem;gap:0.9rem;">
-        <li><strong>Обычное право</strong> — многовековые неписаные нормы поведения, первоначально главный источник; постепенно вытеснялись письменными источниками.</li>
-        <li><strong>Договоры Руси с Византией</strong> (907, 911, 944, 971 гг.) — нормы международного, торгового и уголовного права; свидетельство государственного суверенитета.</li>
-        <li><strong>Княжеские уставы и грамоты</strong> — Устав Владимира о церковных людях, Устав Ярослава о брачно-семейных отношениях.</li>
-        <li><strong>Рецепция византийского права</strong> — Номоканон, Кормчая книга, Эклога; регулировали церковно-семейные отношения.</li>
-        <li><strong>Русская Правда</strong> — первая письменная кодификация обычного права, вершина древнерусского законодательства.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- SLIDE 13: Русская Правда -->
-  <div class="slide" data-slide="13">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;top:-85px;left:-75px;background:#d4a853;opacity:0.1;"></div>
-      <div class="blob" style="width:240px;height:240px;bottom:-55px;right:-45px;background:#8b7355;opacity:0.08;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 12</div>
-      <h2 class="reveal">«Русская Правда»: общая характеристика</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;align-items:start;">
-        <div>
-          <div class="glass-card" style="margin-bottom:12px;">
-            <div class="col-header">Краткая редакция</div>
-            <p style="font-size:0.9rem;color:var(--muted);">Правда Ярослава (~1016) + Правда Ярославичей (~1072). Кодифицирует нормы уголовного права, ограничивает кровную месть.</p>
-          </div>
-          <div class="glass-card" style="margin-bottom:12px;">
-            <div class="col-header">Пространная редакция</div>
-            <p style="font-size:0.9rem;color:var(--muted);">Расширена в XII в., содержит нормы гражданского, процессуального, наследственного права; закрепляет социальную иерархию.</p>
-          </div>
-          <div class="glass-card">
-            <div class="col-header">Сокращённая редакция</div>
-            <p style="font-size:0.9rem;color:var(--muted);">Позднейшая выборка из Пространной, предположительно XV в.; применялась в отдельных землях.</p>
-          </div>
-        </div>
-        <div class="img-block" style="max-height:38vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Russkaya_Pravda_Akademicheskiy_spisok.jpg/320px-Russkaya_Pravda_Akademicheskiy_spisok.jpg" alt="Русская Правда — академический список" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 14: Основные институты права -->
-  <div class="slide" data-slide="14">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:380px;height:380px;top:-80px;right:-65px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:230px;height:230px;bottom:-45px;left:-35px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 13</div>
-      <h2 class="reveal">Основные институты древнерусского права</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;gap:20px;">
-        <div>
-          <p class="body-text" style="margin-bottom:1rem;">Преступление в Русской Правде именовалось <strong>«обидой»</strong> — причинением вреда личности или имуществу. Система наказаний: <em>поток и разграбление</em> (высшая мера — изгнание с конфискацией); <em>вира</em> (денежный штраф за убийство в пользу князя); <em>продажа</em> (штраф за иные преступления). Кровная месть постепенно ограничивалась и заменялась денежными компенсациями.</p>
-          <div class="glass-card">
-            <div class="col-header">Гражданское право</div>
-            <ul class="bullet-list" style="font-size:0.9rem;">
-              <li>Договоры купли-продажи, займа, поклажи</li>
-              <li>Наследство — только сыновьям; у бояр — также дочерям</li>
-              <li>Собственность защищалась строгими санкциями</li>
-            </ul>
-          </div>
-        </div>
-        <div class="img-block" style="max-height:38vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Yaroslav_I_the_Wise.jpg/280px-Yaroslav_I_the_Wise.jpg" alt="Ярослав Мудрый" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 15: Судебный процесс -->
-  <div class="slide" data-slide="15">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;bottom:-90px;right:-70px;background:#d4a853;opacity:0.09;"></div>
-      <div class="blob" style="width:250px;height:250px;top:-50px;left:-40px;background:#8b7355;opacity:0.07;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 14</div>
-      <h2 class="reveal">Судебный процесс в Древнерусском государстве</h2>
-      <p class="body-text reveal" style="margin-bottom:1rem;">Процесс носил <strong>состязательный (обвинительный) характер</strong>: стороны равноправны, дело возбуждается по инициативе потерпевшего.</p>
-      <div class="grid-3 reveal" style="margin-top:0.6rem;">
-        <div class="glass-card">
-          <div class="col-header">Стадии</div>
-          <ul class="bullet-list" style="font-size:0.88rem;">
-            <li>Заклич — публичное объявление о преступлении</li>
-            <li>Свод — поиск похищенной вещи по цепочке</li>
-            <li>Гонение следа — розыск преступника</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Доказательства</div>
-          <ul class="bullet-list" style="font-size:0.88rem;">
-            <li>Видоки — очевидцы</li>
-            <li>Послухи — свидетели репутации</li>
-            <li>Вещественные улики</li>
-          </ul>
-        </div>
-        <div class="glass-card">
-          <div class="col-header">Ордалии</div>
-          <ul class="bullet-list" style="font-size:0.88rem;">
-            <li>Рота — клятва</li>
-            <li>Испытание железом</li>
-            <li>Испытание водой</li>
-            <li>Судебный поединок («поле»)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 16: Безопасность государства -->
-  <div class="slide" data-slide="16">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:390px;height:390px;top:-85px;right:-70px;background:#d4a853;opacity:0.1;"></div>
-      <div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#8b7355;opacity:0.08;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 15 (дополнительный)</div>
-      <h2 class="reveal">Особенности понимания безопасности государства в древности</h2>
-      <p class="body-text reveal" style="margin-bottom:1rem;">В Древней Руси отсутствовали специализированные органы государственной безопасности в современном смысле. Безопасность трактовалась, прежде всего, как <strong>защита от внешних угроз</strong>: кочевников, соседних государств и норманнских набегов. Главным инструментом служила <em>дружина</em> и система <em>пограничных укреплений</em> («Змиевы валы»). Внутренняя безопасность обеспечивалась суровыми санкциями Русской Правды за посягательства на жизнь и имущество. После принятия христианства <em>церковь</em> стала важнейшим идеологическим инструментом легитимации власти и укрепления социальной стабильности.</p>
-    </div>
-  </div>
-
-  <!-- SLIDE 17: Влияние Византии -->
-  <div class="slide" data-slide="17">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:400px;height:400px;top:-90px;left:-75px;background:#d4a853;opacity:0.1;"></div>
-      <div class="blob" style="width:250px;height:250px;bottom:-55px;right:-45px;background:#8b7355;opacity:0.08;"></div>
-    </div>
-    <div class="content">
-      <div class="slide-label reveal">Вопрос 16 (дополнительный)</div>
-      <h2 class="reveal">Влияние Византии на древнерусское право</h2>
-      <div class="grid-2 reveal" style="margin-top:1.4rem;align-items:start;">
-        <p class="body-text">С принятием христианства в <strong>988 году</strong> Русь получила не только новую религию, но и целую правовую культуру. Через церковные уставы заимствовались нормы семейного и наследственного права. Церковные суды рассматривали дела о браке, разводе, сексуальных преступлениях. Византийские правовые сборники (Эклога, Прохирон) переводились и адаптировались к местным условиям. Кормчая книга — русский перевод Номоканона — стала главным источником церковного права. Влияние Византии обогатило древнерусскую правовую систему, придав ей более сложный и систематизированный характер.</p>
-        <div class="img-block" style="max-height:38vh;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Lebedev_baptism.jpg/320px-Lebedev_baptism.jpg" alt="Крещение Руси — картина Лебедева" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 18: Заключение -->
-  <div class="slide" data-slide="18">
-    <div class="gradient-mesh">
-      <div class="blob" style="width:500px;height:500px;top:-110px;right:-90px;background:#d4a853;opacity:0.13;"></div>
-      <div class="blob" style="width:300px;height:300px;bottom:-70px;left:-60px;background:#8b7355;opacity:0.1;"></div>
-      <div class="blob" style="width:180px;height:180px;top:40%;left:8%;background:#d4a853;opacity:0.07;"></div>
-    </div>
-    <div class="content" style="text-align:center;">
-      <div class="reveal" style="font-size:4rem;margin-bottom:1rem;">📜</div>
-      <div class="slide-label reveal" style="justify-content:center;">Итог темы 1</div>
-      <h2 class="reveal" style="margin-bottom:1.5rem;">Заключение</h2>
-      <p class="body-text reveal" style="margin: 0 auto 2rem;text-align:center;max-width:65ch;">Период Древней Руси стал фундаментальным этапом отечественной государственности. Первое русское государство сформировало базовые институты власти, уникальную социальную структуру и первый писаный свод законов — Русскую Правду. Синтез собственной правовой традиции с заимствованиями из Византии заложил прочный фундамент для всего последующего развития российского государства и права.</p>
-      <div class="grid-3 reveal" style="max-width:700px;margin:0 auto;gap:16px;">
-        <div class="glass-card" style="text-align:center;padding:1rem;">
-          <div class="stat-val">IX в.</div>
-          <div class="stat-label">Образование государства</div>
-        </div>
-        <div class="glass-card" style="text-align:center;padding:1rem;">
-          <div class="stat-val">1016</div>
-          <div class="stat-label">Первая Русская Правда</div>
-        </div>
-        <div class="glass-card" style="text-align:center;padding:1rem;">
-          <div class="stat-val">988</div>
-          <div class="stat-label">Крещение Руси</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /deck -->
-
-<!-- NAV -->
-<div class="nav-controls">
-  <button class="nav-btn" onclick="changeSlide(-1)" title="Назад (←)">&#8249;</button>
-  <div class="slide-dots" id="dots"></div>
-  <button class="nav-btn" onclick="changeSlide(1)" title="Вперёд (→)">&#8250;</button>
-  <span class="slide-counter" id="counter">1 / 18</span>
+<div class="slide active" data-i="1"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 1</div><h2 class="reveal">Предмет и метод ИГПР</h2><div class="grid g3"><div class="card reveal"><div class="ct">Объект</div><p>Государство и право России как целостные социальные явления в их конкретно-исторической реальности на всём протяжении существования.</p></div><div class="card reveal"><div class="ct">Предмет</div><p>Закономерности возникновения, развития и смены типов и форм государства, эволюция правовых институтов и источников права.</p></div><div class="card reveal"><div class="ct">Методы</div><ul class="bullets"><li>Историко-сравнительный</li><li>Формально-юридический</li><li>Хронологический</li><li>Системный анализ</li></ul></div></div></div></div><div class="slide" data-i="2"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 2</div><h2 class="reveal">Образование Древнерусского государства</h2><div class="two"><div class="reveal"><p class="body">Государство у восточных славян сложилось к концу <strong>IX в.</strong> в результате разложения родового строя. Объективные предпосылки: развитие пашенного земледелия и появление прибавочного продукта, имущественное расслоение, потребность в защите от хазар и печенегов, контроль над путём «из варяг в греки». В <strong>882 г.</strong> князь Олег объединил Новгород и Киев, создав единое государство со столицей в Киеве.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/%D0%9F%D1%80%D0%B8%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BD%D1%8F%D0%B7%D1%8E_%D0%9E%D0%BB%D0%B5%D0%B3%D1%83_%D0%B4%D0%B0%D0%BD%D0%B8_%D0%BF%D0%BE%D0%BA%D0%BE%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%B0%D0%BC%D0%B8.jpg/960px-%D0%9F%D1%80%D0%B8%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BA%D0%BD%D1%8F%D0%B7%D1%8E_%D0%9E%D0%BB%D0%B5%D0%B3%D1%83_%D0%B4%D0%B0%D0%BD%D0%B8_%D0%BF%D0%BE%D0%BA%D0%BE%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8_%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%B0%D0%BC%D0%B8.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="3"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 3</div><h2 class="reveal">Норманнская и антинорманнская теории</h2><p class="body reveal" style="margin-bottom:.8vw">Спор о роли варягов в образовании государства продолжается с XVIII в.</p><div class="cmp"><div class="card reveal"><div class="ct">Норманнская теория</div><ul class="bullets"><li>Байер, Миллер, Шлёцер</li><li>Государство создано варягами по призыву</li><li>Опора на «Повесть временных лет» (862 г.)</li></ul></div><div class="card reveal"><div class="ct">Антинорманнская теория</div><ul class="bullets"><li>Ломоносов, Рыбаков</li><li>Государство — итог внутреннего развития</li><li>Варяги лишь возглавили готовые структуры</li></ul></div></div></div></div><div class="slide" data-i="4"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 4</div><h2 class="reveal">Общественный строй Киевской Руси</h2><div class="grid g3"><div class="card reveal"><div class="ct">Привилегированные</div><ul class="bullets"><li>Князья и бояре</li><li>Старшая и младшая дружина</li><li>Духовенство (после 988 г.)</li></ul></div><div class="card reveal"><div class="ct">Свободные</div><ul class="bullets"><li>Смерды-общинники</li><li>Купцы, ремесленники</li><li>Рядовичи и закупы</li></ul></div><div class="card reveal"><div class="ct">Зависимые</div><ul class="bullets"><li>Холопы — полное бесправие</li><li>Челядь — пленные рабы</li><li>Изгои</li></ul></div></div></div></div><div class="slide" data-i="5"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 5</div><h2 class="reveal">Государственный строй: раннефеодальная монархия</h2><div class="two"><div class="reveal"><p class="body">Форма правления — <strong>раннефеодальная монархия</strong>. Великий князь киевский был главой государства, верховным военачальником и судьёй. При князе действовал <strong>совет (прото-Боярская дума)</strong> из старших дружинников и знати. Сохранялось <strong>вече</strong> — народное собрание, решавшее вопросы войны, мира, призвания и изгнания князей. Управление строилось на десятичной и зарождавшейся дворцово-вотчинной системе.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/LebedevK_UnichNovgrodVecha.jpg/960px-LebedevK_UnichNovgrodVecha.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="6"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 6</div><h2 class="reveal">Политика первых князей</h2><div class="reveal"><div class="tl"><div class="ev"><span class="d">882</span><span class="t">Олег объединяет Новгород и Киев</span></div><div class="ev"><span class="d">907, 911</span><span class="t">Походы и договоры с Византией</span></div><div class="ev"><span class="d">945–946</span><span class="t">Реформа Ольги: «уроки» и «погосты»</span></div><div class="ev"><span class="d">964–972</span><span class="t">Военные походы Святослава</span></div><div class="ev"><span class="d">980–1015</span><span class="t">Княжение Владимира; крещение Руси</span></div></div></div></div></div><div class="slide" data-i="7"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 7</div><h2 class="reveal">Принятие христианства и его влияние на право</h2><div class="two"><div class="reveal"><p class="body">В <strong>988 г.</strong> князь Владимир принял христианство из Византии. Русь получила не только религию, но и правовую культуру. Через церковные уставы заимствовались нормы семейного и наследственного права. <strong>Церковные суды</strong> рассматривали дела о браке, разводе, преступлениях против нравственности. Византийские сборники (Эклога, Прохирон, Номоканон) переводились и адаптировались, обогатив систему права.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Lebedev_baptism.jpg/960px-Lebedev_baptism.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="8"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 8</div><h2 class="reveal">Источники права Киевской Руси</h2><ul class="bullets"><li><strong>Обычное право</strong> — неписаные многовековые нормы, первоначально главный источник</li><li><strong>Договоры с Византией</strong> 907, 911, 944, 971 гг. — международное и торговое право</li><li><strong>Княжеские уставы</strong> — Устав Владимира о церковных людях, Устав Ярослава</li><li><strong>Рецепция византийского права</strong> — Номоканон, Кормчая книга, Эклога</li><li><strong>Русская Правда</strong> — первая письменная кодификация обычного права</li></ul></div></div><div class="slide" data-i="9"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 9</div><h2 class="reveal">Русская Правда: происхождение и редакции</h2><div class="two"><div class="reveal"><p class="body">«Русская Правда» — первый писаный свод законов Руси, основа древнерусского права.</p><ul class="bullets"><li><strong>Краткая</strong> — Правда Ярослава (~1016) и Ярославичей (~1072)</li><li><strong>Пространная</strong> — XII в., гражданское и процессуальное право</li><li><strong>Сокращённая</strong> — выборка XV в. для отдельных земель</li></ul></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/RR5111-0354R.png" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="10"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 10</div><h2 class="reveal">Право собственности по Русской Правде</h2><p class="body reveal">Русская Правда защищала <strong>частную собственность</strong> строгими санкциями. Различались движимое имущество («товар», скот, холопы) и недвижимость (земля, двор). За кражу и порчу имущества устанавливались дифференцированные штрафы в зависимости от ценности и статуса владельца. Особо охранялась княжеская и боярская собственность. Земля могла находиться в собственности князя, бояр, церкви и общины. Формировалось вотчинное (наследственное) землевладение знати.</p><ul class="bullets"><li>Движимое имущество — повышенная защита</li><li>Княжеская и боярская земля — особые санкции</li><li>Зарождение вотчины как наследственного владения</li></ul></div></div><div class="slide" data-i="11"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 11</div><h2 class="reveal">Обязательственное право</h2><p class="body reveal" style="margin-bottom:.8vw">Обязательства возникали из договоров и причинения вреда.</p><div class="reveal"><table><thead><tr><th>Договор</th><th>Содержание</th></tr></thead><tbody><tr><td>Купля-продажа</td><td>При свидетелях; защита от продажи краденого</td></tr><tr><td>Заём</td><td>Денежный, с процентами («рез»); закупничество за долг</td></tr><tr><td>Поклажа</td><td>Хранение имущества; спор решался присягой</td></tr><tr><td>Личный наём</td><td>Работа по «ряду» — рядовичи и закупы</td></tr></tbody></table></div></div></div><div class="slide" data-i="12"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 12</div><h2 class="reveal">Уголовное право: понятие преступления и виды</h2><div class="two"><div class="reveal"><p class="body">Преступление именовалось <strong>«обидой»</strong> — причинением материального или морального вреда личности либо имуществу. Понятия преступления против государства ещё не сложилось. Различались преступления против личности (убийство, побои, увечья, оскорбление) и против имущества (татьба-кража, разбой, истребление). Субъектами были все свободные; холопы за свои деяния не отвечали — отвечал господин.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Yaroslav._Gerasimov_reconstruction.jpg/960px-Yaroslav._Gerasimov_reconstruction.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="13"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 13</div><h2 class="reveal">Наказания по Русской Правде</h2><p class="body reveal">Система наказаний носила имущественный характер и постепенно вытесняла кровную месть.</p><div class="grid g3" style="margin-top:1.2vw"><div class="stat reveal"><div class="v">Вира</div><div class="l">штраф за убийство (40 гривен)</div></div><div class="stat reveal"><div class="v">Поток</div><div class="l">изгнание с конфискацией</div></div><div class="stat reveal"><div class="v">Продажа</div><div class="l">штраф за прочие обиды</div></div></div></div></div><div class="slide" data-i="14"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 14</div><h2 class="reveal">Судебный процесс: виды и стадии</h2><div class="grid g3"><div class="card reveal"><div class="ct">Стадии</div><ul class="bullets"><li>Заклич — объявление о пропаже</li><li>Свод — поиск вещи по цепочке</li><li>Гонение следа — розыск</li></ul></div><div class="card reveal"><div class="ct">Доказательства</div><ul class="bullets"><li>Видоки — очевидцы</li><li>Послухи — свидетели репутации</li><li>Вещественные улики</li></ul></div><div class="card reveal"><div class="ct">Ордалии</div><ul class="bullets"><li>Рота — присяга</li><li>Испытание железом и водой</li><li>Судебный поединок («поле»)</li></ul></div></div></div></div><div class="slide" data-i="15"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content"><div class="label reveal">Вопрос 15</div><h2 class="reveal">Семейное и наследственное право. Церковные уставы</h2><div class="two"><div class="reveal"><p class="body">После 988 г. брачно-семейные отношения перешли в юрисдикцию <strong>церкви</strong>. Браку предшествовало обручение; устанавливался брачный возраст, условия развода. Наследование: по закону имущество переходило сыновьям, у бояр — также дочерям; смердов без сыновей наследовал князь. <strong>Церковные уставы</strong> Владимира и Ярослава определяли подсудность церковных дел и источники её содержания (десятина).</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ipatievskaya_chronicle_according_to_Khlebnikovsky_list._Page_257.jpg/960px-Ipatievskaya_chronicle_according_to_Khlebnikovsky_list._Page_257.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="16"><div class="blob" style="width:30vw;height:30vw;top:-8vw;right:-6vw;background:#d4a853;opacity:.10"></div><div class="blob" style="width:18vw;height:18vw;bottom:-5vw;left:-4vw;background:#8b7355;opacity:.08"></div><div class="content center"><div class="label reveal">Заключение</div><h2 class="reveal">Итоги темы</h2><p class="body reveal" style="max-width:70ch">Период Древней Руси стал фундаментальным этапом отечественной государственности. Сложились базовые институты власти, уникальная социальная структура и первый писаный свод законов — Русская Правда. Синтез собственной правовой традиции с византийскими заимствованиями заложил прочный фундамент дальнейшего развития государства и права России.</p><div class="grid g3" style="margin-top:1.2vw"><div class="stat reveal"><div class="v">882</div><div class="l">Образование государства</div></div><div class="stat reveal"><div class="v">988</div><div class="l">Крещение Руси</div></div><div class="stat reveal"><div class="v">1016</div><div class="l">Первая Русская Правда</div></div></div></div></div>
+<div class="nav"><button class="nbtn" onclick="ch(-1)" title="Назад">&#8249;</button><div class="dots" id="dots"></div><button class="nbtn" onclick="ch(1)" title="Вперёд">&#8250;</button><span class="counter" id="cnt">1 / 16</span></div>
 </div>
-
 <script>
-  /* ── DECK NAVIGATION ── */
-  let current = 1;
-  const total = document.querySelectorAll('.slide').length;
-  const dotsEl = document.getElementById('dots');
-  const counterEl = document.getElementById('counter');
-
-  for (let i = 1; i <= total; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 1 ? ' active' : '');
-    d.onclick = () => goToSlide(i);
-    dotsEl.appendChild(d);
-  }
-
-  function goToSlide(n) {
-    document.querySelector('.slide.active').classList.remove('active');
-    document.querySelectorAll('.dot')[current-1].classList.remove('active');
-    current = n;
-    const next = document.querySelector(`.slide[data-slide="${n}"]`);
-    next.classList.add('active');
-    document.querySelectorAll('.dot')[n-1].classList.add('active');
-    counterEl.textContent = n + ' / ' + total;
-    animateSlide(next);
-  }
-
-  function changeSlide(dir) {
-    let n = current + dir;
-    if (n < 1) n = total;
-    if (n > total) n = 1;
-    goToSlide(n);
-  }
-
-  /* ── REVEAL ANIMATION ── */
-  function animateSlide(slide) {
-    slide.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.transition = 'none';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(18px)';
-      el.offsetHeight;
-      const delay = i * 0.09;
-      el.style.transition = `opacity 0.4s ease ${delay}s, transform 0.4s ease ${delay}s`;
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-  }
-  animateSlide(document.querySelector('.slide.active'));
-
-  /* ── KEYBOARD ── */
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
-    if (e.key === 'Escape') window.location.href = '/';
-  });
-
-  /* ── TOUCH / SWIPE ── */
-  let touchX = 0;
-  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => {
-    const dx = touchX - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 50) changeSlide(dx > 0 ? 1 : -1);
-  });
-
-  /* ── MOUSE WHEEL ── */
-  let wheeling = false;
-  document.addEventListener('wheel', e => {
-    if (wheeling) return;
-    wheeling = true;
-    changeSlide(e.deltaY > 0 ? 1 : -1);
-    setTimeout(() => { wheeling = false; }, 700);
-  });
-
-  /* ── MOUSE SPOTLIGHT ── */
-  document.addEventListener('mousemove', e => {
-    const s = document.getElementById('spotlight');
-    if (s) s.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(212,168,83,0.06), transparent 40%)`;
-  });
+let cur=1; const total=document.querySelectorAll('.slide').length;
+const dots=document.getElementById('dots'); const cnt=document.getElementById('cnt');
+for(let i=1;i<=total;i++){const d=document.createElement('div');d.className='dot'+(i===1?' active':'');d.onclick=()=>go(i);dots.appendChild(d);}
+function go(n){document.querySelector('.slide.active').classList.remove('active');
+ document.querySelectorAll('.dot')[cur-1].classList.remove('active');cur=n;
+ const s=document.querySelector('.slide[data-i="'+n+'"]');s.classList.add('active');
+ document.querySelectorAll('.dot')[n-1].classList.add('active');cnt.textContent=n+' / '+total;rev(s);}
+function ch(d){let n=cur+d;if(n<1)n=total;if(n>total)n=1;go(n);}
+function rev(s){s.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transition='none';el.style.opacity='0';
+ el.style.transform='translateY(14px)';el.offsetHeight;const dl=i*0.07;
+ el.style.transition='opacity .45s ease '+dl+'s, transform .45s ease '+dl+'s';el.style.opacity='1';el.style.transform='translateY(0)';});}
+rev(document.querySelector('.slide.active'));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();ch(1);}
+ if(e.key==='ArrowLeft'){e.preventDefault();ch(-1);}if(e.key==='Escape')location.href='../index.html';});
+let tx=0;document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{const dx=tx-e.changedTouches[0].clientX;if(Math.abs(dx)>50)ch(dx>0?1:-1);});
 </script>
 </body>
 </html>
