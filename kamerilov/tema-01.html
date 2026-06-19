@@ -3,96 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тема 1. Введение. ИГПР - Камерилов</title>
+<title>Введение. Древнерусское государство и право (IX–XII вв.) — Камерилов</title>
 <style>
-  body { 
-    margin: 0; background: #0a0f1e; color: #e8eaf6; font-family: 'Trebuchet MS', sans-serif; 
-    overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; user-select: none;
-  }
-  .slider { 
-    width: 100vw; height: 56.25vw; max-height: 100vh; max-width: 177.78vh; 
-    position: relative; background: #111827; box-shadow: 0 0 25px rgba(0,0,0,0.9); overflow: hidden; 
-  }
-  .slide { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; 
-    transition: opacity 0.4s ease-in-out; padding: 5%; box-sizing: border-box; 
-    display: flex; flex-direction: column; justify-content: flex-start;
-  }
-  .slide.active { opacity: 1; z-index: 2; }
-  h1 { color: #4fc3f7; font-size: 2.6vw; margin-bottom: 2%; text-align: left; border-left: 5px solid #0288d1; padding-left: 2%;}
-  p { font-size: 1.5vw; line-height: 1.6; color: #b0bec5; text-align: left; margin: 1% 0;}
-  .nav { position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%); display: flex; gap: 1.2vw; z-index: 10; }
-  .dot { width: 1vw; height: 1vw; background: #0288d1; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-  .dot.active { background: #4fc3f7; transform: scale(1.3); }
-  .counter { position: absolute; bottom: 4%; right: 4%; font-size: 1.5vw; color: #0288d1; z-index: 10; font-weight: bold; background: rgba(17,24,39,0.8); padding: 0.5vw 1vw; border-radius: 10px;}
-  .images-row { display: flex; justify-content: flex-start; gap: 3%; height: 45%; margin-top: auto; margin-bottom: 4%; }
-  img { max-height: 100%; object-fit: contain; border: 2px solid #0288d1; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
+:root{
+  --bg:#0a0f1e; --surface:#111827; --panel:#0f1626; --accent:#4fc3f7; --accent2:#0288d1;
+  --text:#e8eaf6; --sub:#b0bec5; --line:#1e2c44; --faint:#5b6b85;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden}
+body{font-family:'Trebuchet MS','Segoe UI',sans-serif;display:flex;align-items:center;justify-content:center}
+.deck{position:relative;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;margin:auto;
+  background:var(--surface);overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.85)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s ease, visibility 0s linear .4s;
+  display:grid;grid-template-columns:20% 80%;}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .4s ease, visibility 0s}
+/* left index rail */
+.rail{background:linear-gradient(160deg,#0c1322,#0a0f1e);border-right:2px solid var(--accent2);
+  padding:4% 6%;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.rail::before{content:'';position:absolute;right:-30%;top:-10%;width:80%;height:50%;
+  background:radial-gradient(circle,rgba(79,195,247,.16),transparent 70%)}
+.rail .qno{font-size:5vw;font-weight:bold;color:var(--accent);line-height:1;text-shadow:0 0 24px rgba(79,195,247,.4)}
+.rail .qlbl{font-size:1vw;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-top:.6vw}
+.rail .topic{font-size:1vw;color:var(--sub);line-height:1.4;opacity:.85}
+.rail .tag{display:inline-block;font-size:.85vw;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--accent2);border-radius:2vw;padding:.35vw .9vw;align-self:flex-start}
+/* main */
+.main{padding:4% 5%;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+h2{font-size:2.4vw;font-weight:bold;color:#fff;line-height:1.15;margin-bottom:1.4vw;
+  border-left:.45vw solid var(--accent);padding-left:1.1vw}
+.body{font-size:1.3vw;line-height:1.6;color:var(--sub);max-width:64ch}
+.body strong{color:var(--accent)}
+.bullets{list-style:none;display:flex;flex-direction:column;gap:.8vw;margin-top:.4vw}
+.bullets li{display:flex;gap:.9vw;font-size:1.25vw;line-height:1.45;color:var(--sub);
+  background:var(--panel);border-left:3px solid var(--accent2);padding:.75vw 1.1vw;border-radius:.3vw}
+.bullets li strong{color:var(--accent)}
+.grid{display:grid;gap:1.2vw;margin-top:.4vw}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:.4vw;padding:1.4vw}
+.card .ct{font-size:1.02vw;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);font-weight:bold;margin-bottom:.6vw}
+.card p{font-size:1.12vw;line-height:1.5;color:var(--sub)}
+.card .bullets li{font-size:1.02vw;background:transparent;border:0;padding:.2vw 0}
+.card .bullets li::before{content:'▸';color:var(--accent);margin-right:.4vw}
+table{width:100%;border-collapse:collapse;margin-top:.4vw;font-size:1.15vw}
+th{background:var(--accent2);color:#fff;text-align:left;padding:.8vw 1.1vw;font-size:1.02vw;
+  letter-spacing:.04em;text-transform:uppercase}
+td{padding:.75vw 1.1vw;border-bottom:1px solid var(--line);color:var(--sub);line-height:1.4}
+tr:nth-child(even) td{background:var(--panel)}
+.tl{display:flex;flex-direction:column;gap:.7vw;margin-top:.4vw}
+.tl .ev{display:flex;align-items:baseline;gap:1vw;background:var(--panel);border-radius:.3vw;
+  padding:.7vw 1.1vw;border-left:3px solid var(--accent)}
+.tl .d{color:var(--accent);font-weight:bold;font-size:1.2vw;min-width:7vw}
+.tl .t{color:var(--sub);font-size:1.15vw}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:.4vw;padding:1.3vw;text-align:center}
+.stat .v{font-size:2.9vw;font-weight:bold;color:var(--accent);text-shadow:0 0 16px rgba(79,195,247,.35)}
+.stat .l{font-size:.95vw;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-top:.3vw}
+.imgwrap{border:2px solid var(--accent2);border-radius:.4vw;overflow:hidden;background:#0c1322;
+  display:flex;align-items:center;justify-content:center;height:100%}
+.imgwrap img{width:100%;height:100%;object-fit:cover;display:block}
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:1.8vw;align-items:center}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;margin-top:.4vw}
+.center{text-align:center;align-items:center}
+/* NAV */
+.nav{position:absolute;bottom:3%;left:calc(20% + 2.5%);display:flex;align-items:center;gap:1vw;z-index:50}
+.nbtn{padding:.6vw 1.4vw;border:1px solid var(--accent2);background:var(--panel);color:var(--accent);
+  font-size:1vw;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:.3vw;transition:.2s;font-family:inherit}
+.nbtn:hover{background:var(--accent2);color:#fff}
+.dots{display:flex;gap:.45vw}
+.dot{width:.65vw;height:.65vw;background:var(--faint);cursor:pointer;transition:.3s;transform:rotate(45deg)}
+.dot.active{background:var(--accent);transform:rotate(45deg) scale(1.4)}
+.counter{position:absolute;bottom:3%;right:2.5%;font-size:1.3vw;font-weight:bold;color:var(--accent);
+  background:var(--panel);border:1px solid var(--line);padding:.4vw 1vw;border-radius:.3vw;z-index:50}
+.close{position:absolute;top:3%;right:2.2%;z-index:60;width:2.7vw;height:2.7vw;border-radius:.3vw;
+  background:var(--panel);border:1px solid var(--accent2);color:var(--sub);font-size:1.4vw;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s}
+.close:hover{background:var(--accent2);color:#fff}
+.reveal{opacity:0;transform:translateY(14px)}
 </style>
 </head>
 <body>
-<div class="slider" id="slider"></div>
+<a class="close" href="../index.html" title="На главную">&#10005;</a>
+<div class="deck">
+<div class="slide active" data-i="1"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">План темы</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Содержание темы 1</h2><div class="grid g3"><div class="card reveal"><div class="ct">Государство</div><ul class="bullets"><li>Образование</li><li>Строй</li><li>Органы власти</li></ul></div><div class="card reveal"><div class="ct">Право</div><ul class="bullets"><li>Источники</li><li>Русская Правда</li><li>Отрасли права</li></ul></div><div class="card reveal"><div class="ct">Контекст</div><ul class="bullets"><li>Крещение Руси</li><li>Византия</li><li>Суд и процесс</li></ul></div></div></div></div><div class="slide" data-i="2"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">1</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Предмет и метод ИГПР</h2><p class="body reveal" style="margin-bottom:.8vw">Дисциплина изучает государственно-правовые институты России в их историческом развитии.</p><div class="reveal"><table><thead><tr><th>Категория</th><th>Содержание</th></tr></thead><tbody><tr><td>Объект</td><td>Государство и право России как социальные явления</td></tr><tr><td>Предмет</td><td>Закономерности развития и смены форм государства и права</td></tr><tr><td>Хронологический метод</td><td>Изучение событий в строгой последовательности</td></tr><tr><td>Сравнительно-правовой</td><td>Сопоставление с зарубежными аналогами</td></tr></tbody></table></div></div></div><div class="slide" data-i="3"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">2</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Образование Древнерусского государства</h2><p class="body reveal" style="margin-bottom:1vw">Государство восточных славян сложилось к концу IX в. под действием объективных факторов.</p><ul class="bullets"><li><strong>Экономика</strong> — пашенное земледелие, прибавочный продукт</li><li><strong>Общество</strong> — имущественное и социальное расслоение</li><li><strong>Оборона</strong> — защита от хазар и печенегов</li><li><strong>Торговля</strong> — путь «из варяг в греки»</li><li><strong>882 г.</strong> — Олег объединил Новгород и Киев</li></ul></div></div><div class="slide" data-i="4"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">3</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Общественный строй Киевской Руси</h2><div class="reveal"><table><thead><tr><th>Слой</th><th>Категории</th><th>Положение</th></tr></thead><tbody><tr><td>Знать</td><td>Князья, бояре, дружина</td><td>Привилегии, землевладение</td></tr><tr><td>Свободные</td><td>Смерды, купцы, ремесленники</td><td>Дань и повинности</td></tr><tr><td>Полузависимые</td><td>Рядовичи, закупы</td><td>Работа по договору / за долг</td></tr><tr><td>Зависимые</td><td>Холопы, челядь</td><td>Полное бесправие</td></tr></tbody></table></div></div></div><div class="slide" data-i="5"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">4</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Государственный строй Киевской Руси</h2><div class="grid g3"><div class="card reveal"><div class="ct">Великий князь</div><p>Глава государства, верховный военачальник, судья и дипломат.</p></div><div class="card reveal"><div class="ct">Совет при князе</div><p>Старшая дружина и знать; совещательный орган (прото-Боярская дума).</p></div><div class="card reveal"><div class="ct">Вече</div><p>Народное собрание: война, мир, призвание и изгнание князей.</p></div></div></div></div><div class="slide" data-i="6"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">5</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Принятие христианства и его влияние на право</h2><div class="two"><div class="reveal"><p class="body">В <strong>988 г.</strong> Владимир крестил Русь. Помимо религии, страна получила развитую правовую культуру Византии. Брачно-семейные и наследственные отношения перешли под юрисдикцию <strong>церковных судов</strong>. Переводились и адаптировались византийские сборники — Номоканон, Эклога, Прохирон. Церковь стала идеологической опорой княжеской власти и фактором единства.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Lebedev_baptism.jpg/960px-Lebedev_baptism.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="7"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">6</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Источники права Киевской Руси</h2><ul class="bullets"><li><strong>Обычное право</strong> — неписаные нормы, главный ранний источник</li><li><strong>Договоры с Византией</strong> — 907, 911, 944, 971 гг.</li><li><strong>Княжеские уставы</strong> — Владимира и Ярослава</li><li><strong>Византийское право</strong> — Кормчая книга, Номоканон</li><li><strong>Русская Правда</strong> — первая кодификация</li></ul></div></div><div class="slide" data-i="8"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">7</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Русская Правда: происхождение и редакции</h2><p class="body reveal" style="margin-bottom:.8vw">Памятник дошёл во множестве списков; выделяют три редакции.</p><div class="reveal"><div class="tl"><div class="ev"><span class="d">~1016</span><span class="t">Правда Ярослава (Краткая редакция)</span></div><div class="ev"><span class="d">~1072</span><span class="t">Правда Ярославичей</span></div><div class="ev"><span class="d">XII в.</span><span class="t">Пространная редакция</span></div><div class="ev"><span class="d">XV в.</span><span class="t">Сокращённая редакция</span></div></div></div></div></div><div class="slide" data-i="9"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">8</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Право собственности по Русской Правде</h2><div class="two"><div class="reveal"><p class="body">Русская Правда обеспечивала <strong>защиту частной собственности</strong>. Различались движимое имущество и недвижимость. За кражу и порчу устанавливались штрафы, зависящие от ценности вещи и статуса владельца. Особо охранялась княжеская и боярская собственность. Складывалось <strong>вотчинное землевладение</strong> — наследственная земля знати, основа будущего феодального строя.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/RR5111-0354R.png" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="10"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">9</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Обязательственное право</h2><div class="grid g3"><div class="card reveal"><div class="ct">Из договоров</div><ul class="bullets"><li>Купля-продажа</li><li>Заём с «резом»</li><li>Поклажа</li><li>Личный наём</li></ul></div><div class="card reveal"><div class="ct">Из причинения вреда</div><ul class="bullets"><li>Обязанность возместить ущерб</li><li>Штраф потерпевшему</li></ul></div><div class="card reveal"><div class="ct">Обеспечение</div><ul class="bullets"><li>Свидетели сделки</li><li>Закупничество за долг</li></ul></div></div></div></div><div class="slide" data-i="11"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">10</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Уголовное право: понятие преступления и виды</h2><p class="body reveal" style="margin-bottom:.8vw">Преступление — «обида», вред личности или имуществу.</p><div class="cmp"><div class="card reveal"><div class="ct">Против личности</div><ul class="bullets"><li>Убийство</li><li>Побои и увечья</li><li>Оскорбление чести</li></ul></div><div class="card reveal"><div class="ct">Против имущества</div><ul class="bullets"><li>Татьба (кража)</li><li>Разбой</li><li>Истребление чужого</li></ul></div></div></div></div><div class="slide" data-i="12"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">11</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Наказания по Русской Правде</h2><p class="body reveal" style="margin-bottom:.8vw">Наказания носили имущественный характер; кровная месть ограничивалась.</p><div class="reveal"><table><thead><tr><th>Наказание</th><th>Применение</th></tr></thead><tbody><tr><td>Поток и разграбление</td><td>Высшая мера: изгнание и конфискация</td></tr><tr><td>Вира</td><td>Штраф за убийство в пользу князя (40 гривен)</td></tr><tr><td>Головничество</td><td>Возмещение родственникам убитого</td></tr><tr><td>Продажа</td><td>Штраф за прочие преступления</td></tr></tbody></table></div></div></div><div class="slide" data-i="13"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">12</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Судебный процесс: виды и стадии</h2><div class="grid g3"><div class="card reveal"><div class="ct">Характер</div><p>Состязательный (обвинительный); стороны равноправны, дело — по инициативе истца.</p></div><div class="card reveal"><div class="ct">Стадии</div><ul class="bullets"><li>Заклич</li><li>Свод</li><li>Гонение следа</li></ul></div><div class="card reveal"><div class="ct">Доказательства</div><ul class="bullets"><li>Видоки и послухи</li><li>Ордалии</li><li>«Поле» — поединок</li></ul></div></div></div></div><div class="slide" data-i="14"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">13</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Семейное и наследственное право</h2><div class="two"><div class="reveal"><p class="body">С 988 г. брак регулировался <strong>церковным правом</strong>. Устанавливались брачный возраст, обряд обручения и венчания, основания развода. <strong>Наследование</strong>: по закону и по завещанию; имущество переходило сыновьям, у бояр — также дочерям. Имущество смерда без сыновей отходило князю. Положение женщины постепенно укреплялось нормами церковных уставов.</p></div><div class="imgwrap reveal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Yaroslav._Gerasimov_reconstruction.jpg/960px-Yaroslav._Gerasimov_reconstruction.jpg" alt="" loading="lazy"></div></div></div></div><div class="slide" data-i="15"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">14</div><div class="qlbl">Вопрос</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main"><h2 class="reveal">Церковные уставы как источник права</h2><p class="body reveal" style="margin-bottom:1vw">Княжеские церковные уставы закрепили статус и юрисдикцию церкви.</p><ul class="bullets"><li><strong>Устав Владимира</strong> — десятина и церковные люди</li><li><strong>Устав Ярослава</strong> — брачно-семейные дела и санкции</li><li>Подсудность церкви: брак, развод, нравственность</li><li>Рецепция византийских норм через Кормчую книгу</li></ul></div></div><div class="slide" data-i="16"><div class="rail"><div><div class="tag">IX–XII вв.</div></div><div><div class="qno">Заключение</div><div class="qlbl">Заключение</div></div><div class="topic">Введение. Древнерусское государство и право (IX–XII вв.)</div></div><div class="main center"><h2 class="reveal">Итоги темы</h2><p class="body reveal" style="max-width:70ch">Период Древней Руси заложил основы отечественной государственности и права. Сформировались органы власти, социальная структура и первый писаный свод — Русская Правда. Синтез обычного права с византийской традицией определил вектор последующего развития российской правовой системы.</p><div class="grid g3" style="margin-top:1.2vw"><div class="stat reveal"><div class="v">882</div><div class="l">Объединение Руси</div></div><div class="stat reveal"><div class="v">988</div><div class="l">Крещение Руси</div></div><div class="stat reveal"><div class="v">1016</div><div class="l">Русская Правда</div></div></div></div></div>
+<div class="nav"><button class="nbtn" onclick="ch(-1)">Prev</button><div class="dots" id="dots"></div><button class="nbtn" onclick="ch(1)">Next</button></div><div class="counter" id="cnt">1 / 16</div>
+</div>
 <script>
-  const slidesData = [
-    { title: "1. Цели и задачи курса ИГПР", text: "Дисциплина «История государства и права России» направлена на формирование у будущих юристов глубокого понимания генезиса и эволюции отечественных государственно-правовых институтов. Основная цель — изучение процесса развития государства и права с момента их зарождения до современности. В задачи входит освоение исторического материала, анализ памятников права, понимание причинно-следственных связей в реформировании государственного аппарата, а также выработка навыков историко-правового мышления, необходимых для профессиональной юридической деятельности." },
-    { title: "2. Предмет и объект ИГПР", text: "Объектом ИГПР выступают государство и право России как целостные социальные феномены в их историческом развитии. Предметом являются конкретные исторические процессы возникновения, развития и смены типов и форм государства и права на территории нашей страны. В отличие от общих исторических наук, ИГПР концентрируется на юридических аспектах: структуре органов власти, правовом статусе слоев населения и эволюции отраслей права, исследуя их в строгой хронологической последовательности." },
-    { title: "3. Методология дисциплины", text: "Для изучения ИГПР применяется комплекс методов. Диалектический метод позволяет рассматривать институты в развитии и взаимосвязи. Хронологический метод обеспечивает последовательное изучение событий. Сравнительно-правовой метод используется для сопоставления российских институтов с зарубежными аналогами (например, Русской Правды и Салической правды). Формально-юридический метод незаменим при анализе текстов нормативных актов прошлого для понимания их юридической природы, терминологии и структуры.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Nestor_Chronicle_illuminated.jpg/280px-Nestor_Chronicle_illuminated.jpg" },
-    { title: "4. Место в системе наук", text: "ИГПР является базовой дисциплиной, находящейся на стыке истории и юриспруденции. Она тесно связана с теорией государства и права, предоставляя ей конкретный исторический материал для теоретических обобщений. Для отраслевых наук (гражданского, уголовного права и др.) ИГПР выступает фундаментом, так как раскрывает исторические предпосылки формирования современных правовых институтов и отраслей, без знания которых невозможно глубокое понимание действующего законодательства." },
-    { title: "5. Периодизация истории", text: "Периодизация ИГПР основывается на ключевых изменениях в социально-экономическом и политическом строе. Выделяют следующие этапы: Древняя Русь (IX-XII вв.), период удельной раздробленности (XII-XIV вв.), Московское централизованное государство (XV-XVII вв.), период империи и абсолютизма (XVIII - нач. XX в.), буржуазно-демократическая республика (1917 г.), советское государство (1917-1991 гг.) и современная Россия. Каждый этап характеризуется специфическими формами правления и источниками права." },
-    { title: "6. Причины образования государства", text: "Образование Древнерусского государства было обусловлено внутренними факторами: развитием земледелия, появлением прибавочного продукта, социальным расслоением и необходимостью защиты от внешних угроз (Хазарский каганат, печенеги). В науке существует спор норманистов (считающих варягов создателями государства) и антинорманистов (утверждающих, что государство сложилось объективно, а варяги лишь составили правящую династию). Современная наука признает синтез обеих теорий.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Oleg%27s_campaign_against_Byzantium.jpg/320px-Oleg%27s_campaign_against_Byzantium.jpg" },
-    { title: "7. Социальное устройство Древней Руси", text: "Общество делилось на свободных, полусвободных и зависимых людей. Элиту составляли князья, бояре и старшая дружина. Свободное население (смерды, люди) платило дань и несло повинности. Категория полузависимых включала рядовичей (работавших по «ряду» - договору) и закупов (отрабатывавших «купу» - долг). Низшую ступень занимали холопы и челядь, находившиеся в полной зависимости, близкой к рабству." },
-    { title: "8. Система органов власти", text: "Древнерусское государство представляло собой раннефеодальную монархию. Главой государства был Великий князь Киевский. Важную роль играл Совет при князе (Боярская дума), состоявший из знати. Сохранялось вече — народное собрание, обладавшее широкими полномочиями, включая призвание и изгнание князей (особенно в Новгороде). На местах власть осуществляли наместники и волостели, опиравшиеся на дружину.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Rus%27_1015_-_1113.png/280px-Rus%271015_-_1113.png" },
-    { title: "9. Военное устройство. Дружина", text: "Вооруженные силы состояли из княжеской дружины и народного ополчения. Дружина (профессиональное войско) делилась на старшую (бояре) и младшую (гриди, отроки). Она не только защищала государство, но и выполняла функции аппарата принуждения, участвуя в управлении и сборе дани (полюдье). Народное ополчение (вои) созывалось в период крупных военных конфликтов по решению веча или князя." },
-    { title: "10. Политика первых князей", text: "Деятельность первых князей (Рюрик, Олег, Игорь, Святослав) была направлена на объединение восточнославянских племен и укрепление международных позиций Руси (походы на Византию). Важнейшим этапом стала административно-налоговая реформа княгини Ольги в середине X века, которая установила фиксированный размер дани («уроки») и места ее сбора («погосты»), что заложило основы регулярного государственного управления.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Yaroslav_I_the_Wise.jpg/280px-Yaroslav_I_the_Wise.jpg" },
-    { title: "11. Источники права Древней Руси", text: "Система источников права включала: обычное право (многовековые неписаные правила поведения), договоры Руси с Византией (содержащие нормы международного и торгового права), княжеские уставы и грамоты (например, церковные уставы Владимира и Ярослава). После принятия христианства значительную роль стали играть переведенные византийские правовые сборники (Номоканон, Эклога), регулировавшие церковно-семейные отношения." },
-    { title: "12. «Русская Правда»", text: "«Русская Правда» — выдающийся памятник древнерусского права, первый писаный кодекс. Он сохранился в множестве списков и делится на Краткую, Пространную и Сокращенную редакции. Кодекс регулировал уголовные, гражданские и процессуальные отношения. В нем четко прослеживается защита частной собственности и закрепление социального неравенства (размер штрафа-виры зависел от статуса потерпевшего)." },
-    { title: "13. Основные институты права", text: "Преступление трактовалось как «обида» — материальный или моральный вред. Система наказаний включала «поток и разграбление» (изгнание с конфискацией), виру (штраф в пользу князя за убийство) и продажу (штраф за иные преступления). В гражданском праве развивались договоры купли-продажи, займа (в том числе с процентами - «резом»). Брачно-семейное право после 988 года перешло в юрисдикцию церкви." },
-    { title: "14. Судебный процесс", text: "Судебный процесс (тяжба) носил состязательный характер. Он начинался с «заклича» (публичного объявления о пропаже). Досудебная подготовка включала «свод» (поиск вещи) и «гонение следа» (поиск преступника). Доказательствами служили показания свидетелей (видоков и послухов), вещественные доказательства, а также ордалии (испытание железом или водой) и судебный поединок («поле»), применявшиеся при недостатке улик." },
-    { title: "15. Безопасность в древности", text: "В Древней Руси не существовало специализированных органов безопасности в современном понимании. Защита государства отождествлялась с защитой личности князя и его имущества. Охрану обеспечивала дружина. Функции обеспечения внутренней безопасности сводились к подавлению восстаний зависимого населения и защите границ от набегов кочевников посредством строительства оборонительных линий («Змиевы валы»)." },
-    { title: "16. Роль церкви в государстве", text: "Принятие христианства в 988 году князем Владимиром кардинально изменило государственно-правовую систему. Церковь стала идеологической опорой княжеской власти, способствуя объединению племен. Церковная юрисдикция охватывала дела о браке, разводе, преступлениях против нравственности. Через церковь происходила рецепция византийского права, что значительно обогатило и усложнило древнерусскую правовую культуру.", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Lebedev_baptism.jpg/320px-Lebedev_baptism.jpg" },
-    { title: "Заключение", text: "Период Древней Руси стал фундаментальным этапом в истории отечественного государства и права. В это время сформировались основы государственной власти, сложилась социальная структура общества и был создан первый общерусский свод законов — Русская Правда. Изучение этого периода необходимо для понимания истоков российской правовой системы и особенностей ее последующего исторического развития." }
-  ];
-
-  const slider = document.getElementById('slider');
-  let html = '';
-  slidesData.forEach((s, i) => {
-    let imgHtml = s.img ? `<div class="images-row"><img src="${s.img}" alt="Иллюстрация"></div>` : '';
-    html += `<div class="slide ${i===0?'active':''}" id="slide-${i}">
-      <h1>${s.title}</h1>
-      <p>${s.text}</p>
-      ${imgHtml}
-    </div>`;
-  });
-
-  html += `<div class="nav">${slidesData.map((_,i) => `<div class="dot ${i===0?'active':''}" data-index="${i}"></div>`).join('')}</div>`;
-  html += `<div class="counter"><span id="curr">1</span> / ${slidesData.length}</div>`;
-  slider.innerHTML = html;
-
-  let curr = 0;
-  function goTo(i) {
-    document.querySelectorAll('.slide')[curr].classList.remove('active');
-    document.querySelectorAll('.dot')[curr].classList.remove('active');
-    curr = i;
-    document.querySelectorAll('.slide')[curr].classList.add('active');
-    document.querySelectorAll('.dot')[curr].classList.add('active');
-    document.getElementById('curr').innerText = curr + 1;
-  }
-
-  document.querySelectorAll('.dot').forEach(dot => {
-    dot.addEventListener('click', (e) => goTo(parseInt(e.target.dataset.index)));
-  });
-
-  document.addEventListener('keydown', e => {
-    if((e.key === 'ArrowRight' || e.key === 'Space') && curr < slidesData.length-1) goTo(curr+1);
-    if(e.key === 'ArrowLeft' && curr > 0) goTo(curr-1);
-  });
-
-  let touchstartX = 0;
-  document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
-  document.addEventListener('touchend', e => {
-    let touchendX = e.changedTouches[0].screenX;
-    if(touchstartX - touchendX > 50 && curr < slidesData.length-1) goTo(curr+1);
-    if(touchendX - touchstartX > 50 && curr > 0) goTo(curr-1);
-  });
+let cur=1; const total=document.querySelectorAll('.slide').length;
+const dots=document.getElementById('dots'); const cnt=document.getElementById('cnt');
+for(let i=1;i<=total;i++){const d=document.createElement('div');d.className='dot'+(i===1?' active':'');d.onclick=()=>go(i);dots.appendChild(d);}
+function go(n){document.querySelector('.slide.active').classList.remove('active');
+ document.querySelectorAll('.dot')[cur-1].classList.remove('active');cur=n;
+ const s=document.querySelector('.slide[data-i="'+n+'"]');s.classList.add('active');
+ document.querySelectorAll('.dot')[n-1].classList.add('active');cnt.textContent=n+' / '+total;rev(s);}
+function ch(d){let n=cur+d;if(n<1)n=total;if(n>total)n=1;go(n);}
+function rev(s){s.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transition='none';el.style.opacity='0';
+ el.style.transform='translateY(14px)';el.offsetHeight;const dl=i*0.07;
+ el.style.transition='opacity .45s ease '+dl+'s, transform .45s ease '+dl+'s';el.style.opacity='1';el.style.transform='translateY(0)';});}
+rev(document.querySelector('.slide.active'));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();ch(1);}
+ if(e.key==='ArrowLeft'){e.preventDefault();ch(-1);}if(e.key==='Escape')location.href='../index.html';});
+let tx=0;document.addEventListener('touchstart',e=>tx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{const dx=tx-e.changedTouches[0].clientX;if(Math.abs(dx)>50)ch(dx>0?1:-1);});
 </script>
 </body>
 </html>
